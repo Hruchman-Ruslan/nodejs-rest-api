@@ -2,26 +2,43 @@ import express from "express";
 
 import contactService from "../../models/contacts.js";
 
+import { HttpError } from "../../helpers/index.js";
+
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
-  const result = await contactService.listContacts();
-  res.json(result);
+router.get("/", async (req, res) => {
+  try {
+    const result = await contactService.getAllContacts();
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.get("/:contactId", async (req, res, next) => {
-  res.json({ message: "template message" });
+router.get("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await contactService.getContactById(id);
+    if (!result) {
+      throw HttpError(404, `Contact with id=${id} not found`);
+    }
+    res.json(result);
+  } catch (error) {
+    next(error);
+    // const { status = 500, message = "Server error" } = error;
+    // res.status(status).json({ message });
+  }
 });
 
 router.post("/", async (req, res, next) => {
   res.json({ message: "template message" });
 });
 
-router.delete("/:contactId", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   res.json({ message: "template message" });
 });
 
-router.put("/:contactId", async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   res.json({ message: "template message" });
 });
 
