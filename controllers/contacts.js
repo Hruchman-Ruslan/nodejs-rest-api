@@ -1,29 +1,49 @@
-import contactService from "../models/contacts.js";
+import Contact from "../models/contact.js";
 
 import { HttpError, ctrlWrapper } from "../helpers/index.js";
 
 const getAll = async (_, res) => {
-  const result = await contactService.getAllContacts();
+  const result = await Contact.find({}, "-createdAt -updatedAt");
   res.json(result);
 };
 
-const getById = async (req, res) => {
-  const { id } = req.params;
-  const result = await contactService.getContactById(id);
+const getById = async ({ params }, res) => {
+  const { id } = params;
+  const result = await Contact.findById(id);
   if (!result) {
     throw HttpError(404, `Contact with id=${id} not found`);
   }
   res.json(result);
 };
 
-const add = async (req, res) => {
-  const result = await contactService.addContact(req.body);
+const add = async ({ body }, res) => {
+  const result = await Contact.create(body);
   res.status(201).json(result);
 };
 
-const deleteById = async (req, res) => {
-  const { id } = req.params;
-  const result = await contactService.removeContact(id);
+const updateById = async ({ body, params }, res) => {
+  const { id } = params;
+  const result = await Contact.findByIdAndUpdate(id, body, { new: true });
+  if (!result) {
+    throw HttpError(404, `Contact with id=${id} not found`);
+  }
+  res.json(result);
+};
+
+const updateStatusContact = async ({ body, params }, res) => {
+  const { id } = params;
+  const result = await Contact.findByIdAndUpdate(id, body, {
+    new: true,
+  });
+  if (!result) {
+    throw HttpError(404, `Contact with id=${id} not found`);
+  }
+  res.json(result);
+};
+
+const deleteById = async ({ params }, res) => {
+  const { id } = params;
+  const result = await Contact.findByIdAndDelete(id);
   if (!result) {
     throw HttpError(404, `Contact with id=${id} not found`);
   }
@@ -32,19 +52,11 @@ const deleteById = async (req, res) => {
   });
 };
 
-const updateById = async (req, res) => {
-  const { id } = req.params;
-  const result = await contactService.updateContactById(id, req.body);
-  if (!result) {
-    throw HttpError(404, `Contact with id=${id} not found`);
-  }
-  res.json(result);
-};
-
 export default {
   getAll: ctrlWrapper(getAll),
   getById: ctrlWrapper(getById),
   add: ctrlWrapper(add),
-  deleteById: ctrlWrapper(deleteById),
   updateById: ctrlWrapper(updateById),
+  updateStatusContact: ctrlWrapper(updateStatusContact),
+  deleteById: ctrlWrapper(deleteById),
 };
