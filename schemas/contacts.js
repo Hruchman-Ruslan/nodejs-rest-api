@@ -1,21 +1,17 @@
 import Joi from "joi";
 
 const contactAddSchema = Joi.object({
-  name: Joi.string()
-    .min(3)
-    .max(30)
-    .required()
-    .messages({ "any.required": `'name must be exist` }),
-  email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
-    .required()
-    .messages({ "any.required": `'email must be exist` }),
-  phone: Joi.string()
-    .required()
-    .messages({ "any.required": `'phone must be exist` }),
+  name: Joi.string().required(),
+  email: Joi.string().required(),
+  phone: Joi.string().required(),
+  favorite: Joi.boolean(),
 });
 
-export default contactAddSchema;
+const contactUpdateFavoriteSchema = Joi.object({
+  favorite: Joi.boolean().required(),
+});
+
+export default {
+  contactAddSchema,
+  contactUpdateFavoriteSchema,
+};
