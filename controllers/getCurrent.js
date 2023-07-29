@@ -1,11 +1,12 @@
 import { ctrlWrapper } from "../helpers/index.js";
 
 const getCurrent = ({ user }, res) => {
-  const { name, email } = user;
+  const { name, email, subscription } = user;
 
   res.json({
     name,
     email,
+    subscription,
   });
 };
 

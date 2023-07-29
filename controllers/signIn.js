@@ -10,6 +10,7 @@ const { JWT_SECRET } = process.env;
 const signIn = async ({ body }, res) => {
   const { email, password } = body;
   const user = await User.findOne({ email });
+
   if (!user) {
     throw HttpError(401, "Email or password is wrong");
   }
@@ -28,6 +29,10 @@ const signIn = async ({ body }, res) => {
 
   res.json({
     token,
+    user: {
+      email: user.email,
+      subscription: user.subscription,
+    },
   });
 };
 
