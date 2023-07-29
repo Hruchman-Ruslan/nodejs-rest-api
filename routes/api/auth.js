@@ -1,6 +1,11 @@
 import express from "express";
 
-import { signUp, signIn, getCurrent } from "../../controllers/index.js";
+import {
+  signUp,
+  signIn,
+  getCurrent,
+  signOut,
+} from "../../controllers/index.js";
 import { authenticate, validateBody } from "../../middleware/index.js";
 import schemas from "../../schemas/users.js";
 
@@ -19,5 +24,7 @@ authRouter.post(
 );
 
 authRouter.get("/current", authenticate, getCurrent);
+
+authRouter.post("/signout", authenticate, signOut);
 
 export default authRouter;
