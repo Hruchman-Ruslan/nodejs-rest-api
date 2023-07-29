@@ -5,8 +5,8 @@ const { JWT_SECRET } = process.env;
 import { HttpError, ctrlWrapper } from "../helpers/index.js";
 import User from "../models/user.js";
 
-const authenticate = async ({ headers }, _, next) => {
-  const { authorization = "" } = headers;
+const authenticate = async (req, _, next) => {
+  const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
   if (bearer !== "Bearer") {
     throw HttpError(401, "Unauthorized");
@@ -18,6 +18,7 @@ const authenticate = async ({ headers }, _, next) => {
     if (!user) {
       throw HttpError(401, "Unauthorized");
     }
+    req.user = user;
     next();
   } catch {
     throw HttpError(401, "Unauthorized");
