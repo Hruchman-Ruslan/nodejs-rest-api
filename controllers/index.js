@@ -6,3 +6,4 @@ export { default as updateStatusContact } from "./updateStatusContact.js";
 export { default as deleteContactById } from "./deleteContactById.js";
 export { default as signUp } from "./signUp.js";
 export { default as signIn } from "./signIn.js";
+export { default as getCurrent } from "./getCurrent.js";
