@@ -8,10 +8,16 @@ import {
   updateStatusContact,
   deleteContactById,
 } from "../../controllers/index.js";
-import { validateBody, isValidId } from "../../middleware/index.js";
+import {
+  authenticate,
+  validateBody,
+  isValidId,
+} from "../../middleware/index.js";
 import schemas from "../../schemas/contacts.js";
 
 const router = express.Router();
+
+router.use(authenticate);
 
 router.get("/", getAllContacts);
 
