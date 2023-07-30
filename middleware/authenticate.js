@@ -8,7 +8,7 @@ import User from "../models/user.js";
 const authenticate = async (req, _, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
-  if (bearer !== "Bearer") {
+  if (!token || bearer !== "Bearer") {
     throw HttpError(401, "Unauthorized");
   }
 
