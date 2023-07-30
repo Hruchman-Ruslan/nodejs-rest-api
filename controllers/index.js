@@ -4,3 +4,8 @@ export { default as addContact } from "./addContact.js";
 export { default as updateContactById } from "./updateContactById.js";
 export { default as updateStatusContact } from "./updateStatusContact.js";
 export { default as deleteContactById } from "./deleteContactById.js";
+export { default as signUp } from "./signUp.js";
+export { default as signIn } from "./signIn.js";
+export { default as getCurrent } from "./getCurrent.js";
+export { default as signOut } from "./signOut.js";
+export { default as subscription } from "./subscription.js";
