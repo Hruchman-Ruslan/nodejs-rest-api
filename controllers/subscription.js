@@ -1,12 +1,12 @@
 import { HttpError, ctrlWrapper } from "../helpers/index.js";
 import User from "../models/user.js";
 
-const subscription = async ({ body, params }, res) => {
+const subscription = async ({ body, user }, res) => {
   try {
-    const { id } = params;
+    const { _id } = user;
     const { subscription } = body;
     const result = await User.findByIdAndUpdate(
-      id,
+      _id,
       { subscription },
       { new: true }
     );

@@ -9,3 +9,4 @@ export { default as signIn } from "./signIn.js";
 export { default as getCurrent } from "./getCurrent.js";
 export { default as signOut } from "./signOut.js";
 export { default as subscription } from "./subscription.js";
+export { default as updateAvatar } from "./updateAvatar.js";
