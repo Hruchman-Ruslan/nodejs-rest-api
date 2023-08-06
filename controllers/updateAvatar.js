@@ -7,17 +7,6 @@ import Jimp from "jimp";
 const avatarsDir = path.resolve("public", "avatars");
 
 const updateAvatar = async (req, res) => {
-  //   const { _id } = req.user;
-  //   const { path: tempUpload, originalName } = req.file;
-  //   const fileName = `${_id}_${originalName}`;
-  //   const resultUpload = path.join(avatarsDir, fileName);
-  //   await fs.rename(tempUpload, resultUpload);
-  //   const avatarURL = path.join("avatars", fileName);
-  //   await User.findByIdAndUpdate(_id, { avatarURL });
-
-  //   res.json({
-  //     avatarURL,
-  //   });
   const { _id } = req.user;
   const { path: tempUpload, originalname } = req.file;
   const avatar = await Jimp.read(tempUpload);
