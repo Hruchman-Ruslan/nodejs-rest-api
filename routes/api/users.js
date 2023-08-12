@@ -7,6 +7,8 @@ import {
   signOut,
   subscription,
   updateAvatar,
+  verifyEmail,
+  resendVerifyEmail,
 } from "../../controllers/index.js";
 import { authenticate, validateBody, upload } from "../../middleware/index.js";
 import schemas from "../../schemas/users.js";
@@ -17,6 +19,14 @@ authRouter.post(
   "/signup",
   validateBody.validateBody(schemas.userSignUpSchema),
   signUp
+);
+
+authRouter.get("/verify/:verificationToken", verifyEmail);
+
+authRouter.post(
+  "/verify",
+  validateBody.validateBody(schemas.verifyEmailSchema),
+  resendVerifyEmail
 );
 
 authRouter.post(
